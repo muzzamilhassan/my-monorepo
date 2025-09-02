@@ -1,0 +1,5 @@
+---
+"@muzzamilhassan/mathsss": patch
+---
+
+updated

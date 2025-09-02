@@ -1,20 +1,27 @@
 name: Auto Publish Packages
 
+# Ensure workflow has correct permissions
+permissions:
+  contents: write   # allow pushing commits
+  packages: write   # allow publishing packages
+
 on:
   push:
     branches:
       - main      # Trigger on main branch
     tags:
-      - 'v*'      # Optional: trigger on version tags
+      - 'v*'      # Optional: trigger on version tags like v0.2.1
 
 jobs:
   release:
     name: Release Packages
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout the repo
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true  # allows pushing commits using GITHUB_TOKEN
 
       # 2. Setup Node.js
       - name: Setup Node.js
