@@ -10,39 +10,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repo
+      # 1️⃣ Checkout repo
       - uses: actions/checkout@v4
 
-      # Setup Node.js
+      # 2️⃣ Setup Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org/'
 
-      # Setup pnpm
+      # 3️⃣ Setup pnpm
       - uses: pnpm/action-setup@v4
         with:
-          run_install: false
+          run_install: false   # we’ll run install manually
 
-      # Install dependencies
+      # 4️⃣ Install dependencies
       - run: pnpm install --frozen-lockfile
 
-      # Build all packages
+      # 5️⃣ Build packages
       - run: pnpm build
 
-      # Version bump via changesets
+      # 6️⃣ Bump versions via changesets
       - run: pnpm changeset version
 
-      # Install after version bump
+      # 7️⃣ Install again after version bump
       - run: pnpm install --frozen-lockfile
 
-      # Commit version changes back to repo
+      # 8️⃣ Commit version changes
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "ci: version packages [skip ci]"
 
-      # Publish to npm
+      # 9️⃣ Publish to npm
       - run: pnpm changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
