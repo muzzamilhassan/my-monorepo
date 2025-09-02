@@ -8,14 +8,42 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          run_install: true
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: pnpm changeset version
-      - run: pnpm changeset publish
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      # This step will bump versions, create changelog, and commit back
+      - name: Version packages
+        run: pnpm changeset version
+
+      - name: Install again after versioning
+        run: pnpm install --frozen-lockfile
+
+      - name: Commit version changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: version packages [skip ci]"
+
+      # Publish to npm
+      - name: Publish packages
+        run: pnpm changeset publish
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
