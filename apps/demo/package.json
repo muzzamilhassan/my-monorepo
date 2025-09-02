@@ -6,8 +6,8 @@
       "dev": "node --loader ts-node/esm src/index.ts"
     },
     "dependencies": {
-      "utilsss": "workspace:*",
-      "mathsss": "workspace:*"
+      "@muzzamil/utilsss": "workspace:*",
+      "@muzzamil/mathsss": "workspace:*"
     },
     "devDependencies": {
       "ts-node": "^10.9.1",
