@@ -11,34 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Setup Node.js
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8 # specify pnpm version if needed
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org/'
-
-      # Install pnpm
-      - run: npm install -g pnpm@9
-
-      # Install dependencies
-      - run: pnpm install --frozen-lockfile
-
-      # Build packages
-      - run: pnpm build
-
-      # Version bump with changesets
-      - run: pnpm changeset version
-
-      # Reinstall after version bump
-      - run: pnpm install --frozen-lockfile
-
-      # Commit version changes
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "ci: version packages [skip ci]"
-
-      # Publish packages
-      - run: pnpm changeset publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          cache: pnpm
+          registry-url: https://registry.npmjs.org/
