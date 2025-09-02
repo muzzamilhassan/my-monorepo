@@ -13,16 +13,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Install pnpm first
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      # Then setup Node.js (this will pick up pnpm correctly)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -30,7 +33,6 @@ jobs:
       - name: Build packages
         run: pnpm build
 
-      # This step will bump versions, create changelog, and commit back
       - name: Version packages
         run: pnpm changeset version
 
@@ -42,7 +44,6 @@ jobs:
         with:
           commit_message: "ci: version packages [skip ci]"
 
-      # Publish to npm
       - name: Publish packages
         run: pnpm changeset publish
         env:
