@@ -1,5 +1,16 @@
 # demo-app
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [e1ae180]
+- Updated dependencies [1cf3441]
+- Updated dependencies [1cf3441]
+- Updated dependencies [e1ae180]
+  - @muzzamilhassan/mathsss@0.2.1
+  - @muzzamilhassan/utilsss@0.2.1
+
 ## 1.0.1
 
 ### Patch Changes
