@@ -6,28 +6,39 @@ on:
       - main
 
 jobs:
-        release:
-          runs-on: ubuntu-latest
-          steps:
-            - uses: actions/checkout@v4
-      
-            - uses: actions/setup-node@v4
-              with:
-                node-version: 20
-                cache: 'pnpm'
-                registry-url: 'https://registry.npmjs.org/'
-      
-            # Install pnpm globally
-            - run: npm install -g pnpm@9
-      
-            - run: pnpm install --frozen-lockfile
-            - run: pnpm build
-            - run: pnpm changeset version
-            - run: pnpm install --frozen-lockfile
-            - uses: stefanzweifel/git-auto-commit-action@v5
-              with:
-                commit_message: "ci: version packages [skip ci]"
-            - run: pnpm changeset publish
-              env:
-                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Setup Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org/'
+
+      # Install pnpm
+      - run: npm install -g pnpm@9
+
+      # Install dependencies
+      - run: pnpm install --frozen-lockfile
+
+      # Build packages
+      - run: pnpm build
+
+      # Version bump with changesets
+      - run: pnpm changeset version
+
+      # Reinstall after version bump
+      - run: pnpm install --frozen-lockfile
+
+      # Commit version changes
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: version packages [skip ci]"
+
+      # Publish packages
+      - run: pnpm changeset publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
