@@ -1,21 +1,53 @@
-name: Release
+name: Auto Publish Packages
 
 on:
   push:
     branches:
-      - main
+      - main      # Trigger on main branch
+    tags:
+      - 'v*'      # Optional: trigger on version tags
 
 jobs:
   release:
+    name: Release Packages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      # 1. Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          run_install: true
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: pnpm changeset version
-      - run: pnpm changeset publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      # 3. Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5. Authenticate npm
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      # 6. Bump versions & generate changelog
+      - name: Version packages
+        run: pnpm changeset version
+
+      # 7. Commit version bumps & changelog
+      - name: Commit version bumps
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore(release): version packages [skip ci]" || echo "No changes to commit"
+          git push
+
+      # 8. Publish updated packages to npm
+      - name: Publish packages
+        run: pnpm changeset publish
