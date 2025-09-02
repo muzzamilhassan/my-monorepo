@@ -10,15 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8 # specify pnpm version if needed
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-          registry-url: https://registry.npmjs.org/
+          run_install: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm changeset version
+      - run: pnpm changeset publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
