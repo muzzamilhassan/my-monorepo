@@ -1,27 +1,27 @@
 name: Auto Publish Packages
 
-# Ensure workflow has correct permissions
 permissions:
-  contents: write   # allow pushing commits
-  packages: write   # allow publishing packages
+  contents: write
+  packages: write
 
 on:
   push:
     branches:
-      - main      # Trigger on main branch
+      - main
     tags:
-      - 'v*'      # Optional: trigger on version tags like v0.2.1
+      - 'v*'  # optional, trigger on tags like v0.2.1
 
 jobs:
   release:
     name: Release Packages
     runs-on: ubuntu-latest
+
     steps:
       # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true  # allows pushing commits using GITHUB_TOKEN
+          persist-credentials: true
 
       # 2. Setup Node.js
       - name: Setup Node.js
@@ -38,15 +38,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 5. Authenticate npm
+      # 5. Authenticate npm for your scope
       - name: Authenticate with npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        run: |
+          echo "@muzzamilhassan:registry=https://registry.npmjs.org/" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
-      # 6. Bump versions & generate changelog
+      # 6. Build packages
+      - name: Build packages
+        run: pnpm -r run build
+
+      # 7. Bump versions & generate changelog
       - name: Version packages
         run: pnpm changeset version
 
-      # 7. Commit version bumps & changelog
+      # 8. Commit version bumps & changelog
       - name: Commit version bumps
         run: |
           git config user.name "github-actions[bot]"
@@ -55,6 +61,6 @@ jobs:
           git commit -m "chore(release): version packages [skip ci]" || echo "No changes to commit"
           git push
 
-      # 8. Publish updated packages to npm
+      # 9. Publish updated packages to npm
       - name: Publish packages
-        run: pnpm changeset publish
+        run: pnpm changeset publish --access public
