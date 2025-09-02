@@ -26,10 +26,10 @@ importers:
 
   apps/demo:
     dependencies:
-      '@muzzamil/mathsss':
+      '@muzzamilhassan/mathsss':
         specifier: workspace:*
         version: link:../../packages/math
-      '@muzzamil/utilsss':
+      '@muzzamilhassan/utilsss':
         specifier: workspace:*
         version: link:../../packages/utils
     devDependencies:
