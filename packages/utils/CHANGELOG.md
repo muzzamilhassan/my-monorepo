@@ -1,5 +1,11 @@
 # @muzzamilhassan/utilsss
 
+## 0.2.3
+
+### Patch Changes
+
+- 56dd417: small changess
+
 ## 0.2.2
 
 ### Patch Changes

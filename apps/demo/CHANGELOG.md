@@ -1,5 +1,12 @@
 # demo-app
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [56dd417]
+  - @muzzamilhassan/utilsss@0.2.3
+
 ## 1.0.5
 
 ### Patch Changes
