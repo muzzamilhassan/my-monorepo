@@ -1,5 +1,12 @@
 # demo-app
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [f7cb8bc]
+  - @muzzamilhassan/mathsss@0.3.0
+
 ## 1.0.3
 
 ### Patch Changes

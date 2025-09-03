@@ -1,5 +1,11 @@
 # @muzzamilhassan/mathsss
 
+## 0.3.0
+
+### Minor Changes
+
+- f7cb8bc: added advnce functiosn
+
 ## 0.2.2
 
 ### Patch Changes
