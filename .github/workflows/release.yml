@@ -8,8 +8,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'  # optional, trigger on tags like v0.2.1
 
 jobs:
   release:
@@ -18,49 +16,39 @@ jobs:
 
     steps:
       # 1. Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
+      - uses: actions/checkout@v4
 
-      # 2. Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # 2. Setup Node.js (with npm registry + token)
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org
+          registry-url: https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # 3. Install pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
 
       # 4. Install dependencies
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      # 5. Authenticate npm for your scope
-      - name: Authenticate with npm
-        run: |
-          echo "@muzzamilhassan:registry=https://registry.npmjs.org/" > ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+      # 5. Build packages
+      - run: pnpm -r run build
 
-      # 6. Build packages
-      - name: Build packages
-        run: pnpm -r run build
+      # 6. Version packages
+      - run: pnpm changeset version
 
-      # 7. Bump versions & generate changelog
-      - name: Version packages
-        run: pnpm changeset version
-
-      # 8. Commit version bumps & changelog
-      - name: Commit version bumps
-        run: |
+      # 7. Commit version bumps
+      - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "chore(release): version packages [skip ci]" || echo "No changes to commit"
           git push
 
-      # 9. Publish updated packages to npm
-      - name: Publish packages
-        run: pnpm changeset publish --access public
+      # 8. Publish to npm
+      - run: pnpm changeset publish --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
