@@ -1,5 +1,11 @@
 # @muzzamilhassan/mathsss
 
+## 0.3.3
+
+### Patch Changes
+
+- 4397cb9: i update readme.md file
+
 ## 0.3.2
 
 ### Patch Changes
