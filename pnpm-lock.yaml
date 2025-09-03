@@ -40,6 +40,12 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  apps/hassan: {}
+
+  apps/muzzamilhassan: {}
+
+  apps/my-app: {}
+
   packages/create-user:
     devDependencies:
       '@types/node':
