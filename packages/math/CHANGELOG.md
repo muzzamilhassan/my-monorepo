@@ -1,5 +1,11 @@
 # @muzzamilhassan/mathsss
 
+## 0.3.2
+
+### Patch Changes
+
+- 6bccf30: udpate
+
 ## 0.3.1
 
 ### Patch Changes
