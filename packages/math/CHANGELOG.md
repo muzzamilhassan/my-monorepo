@@ -1,5 +1,11 @@
 # @muzzamilhassan/mathsss
 
+## 0.3.4
+
+### Patch Changes
+
+- d14ff9c: small change
+
 ## 0.3.3
 
 ### Patch Changes
