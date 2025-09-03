@@ -1,135 +1,127 @@
-# Turborepo starter
+# My Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+A TypeScript monorepo containing utility packages and applications built with modern development tools.
 
-## Using this example
+## 📦 Published Packages
 
-Run the following command:
+### [@muzzamilhassan/mathsss](./packages/math/README.md)
+A lightweight mathematics utility package providing essential mathematical operations like addition and multiplication.
 
-```sh
-npx create-turbo@latest
+**Features:**
+- Simple mathematical functions (`sum`, `multiply`)
+- Full TypeScript support
+- Lightweight and fast
+- ES module support
+
+**Installation:**
+```bash
+npm install @muzzamilhassan/mathsss
 ```
 
-## What's inside?
+### [@muzzamilhassan/utilsss](./packages/utils/README.md)
+A comprehensive utility library with 25+ helper functions for strings, numbers, arrays, objects, dates, promises, and validation.
 
-This Turborepo includes the following packages/apps:
+**Features:**
+- 25+ utility functions across multiple categories
+- Full TypeScript support
+- Optimized for performance
+- Tree-shakeable design
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+**Installation:**
+```bash
+npm install @muzzamilhassan/utilsss
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## 🏗️ Project Structure
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+my-monorepo/
+├── apps/
+│   └── demo/                 # Demo application
+├── packages/
+│   ├── math/                 # @muzzamilhassan/mathsss package
+│   ├── utils/                # @muzzamilhassan/utilsss package
+│   └── hooks/                # React hooks package (in development)
+├── package.json              # Root package configuration
+├── pnpm-workspace.yaml       # PNPM workspace configuration
+└── turbo.json                # Turborepo configuration
 ```
 
-### Develop
+## 🚀 Getting Started
 
-To develop all apps and packages, run the following command:
+### Prerequisites
+- Node.js 16+ 
+- PNPM (recommended) or npm/yarn
 
-```
-cd my-turborepo
+### Installation
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd my-monorepo
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+# Install dependencies
+pnpm install
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+# Build all packages
+pnpm build
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+# Run demo app
+cd apps/demo
+pnpm dev
 ```
 
-### Remote Caching
+## 🛠️ Development
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+### Available Scripts
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+**Root level:**
+```bash
+pnpm build          # Build all packages
+pnpm dev            # Start development mode
+pnpm test           # Run tests across all packages
+pnpm lint           # Lint all packages
+pnpm clean          # Clean build artifacts
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+**Package level:**
+```bash
+pnpm build          # Build specific package
+pnpm dev            # Start package in development mode
 ```
 
-## Useful Links
+### Adding New Packages
+1. Create a new directory in `packages/`
+2. Initialize with `package.json`
+3. Add to `pnpm-workspace.yaml`
+4. Configure build scripts
 
-Learn more about the power of Turborepo:
+## 📚 Documentation
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- [Math Package Documentation](./packages/math/README.md)
+- [Utils Package Documentation](./packages/utils/README.md)
+- [Demo App](./apps/demo/)
+
+## 🤝 Contributing
+
+We welcome contributions! Please see individual package READMEs for specific contribution guidelines.
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the ISC License - see individual package READMEs for details.
+
+## 📞 Support
+
+For questions or support:
+- Open an issue on the GitHub repository
+- Check individual package documentation
+- Review the demo application for usage examples
+
+---
+
+**Built with ❤️ by Muzzamil Hassan**
