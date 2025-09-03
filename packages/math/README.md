@@ -1,121 +1,140 @@
 # @muzzamilhassan/mathsss
 
-A lightweight, TypeScript-first mathematics utility package providing essential mathematical operations.
+A TypeScript-first mathematics utility library with arithmetic, advanced math, statistics, geometry helpers, and utility functions.
 
 ## 📦 Installation
 
 ```bash
 npm install @muzzamilhassan/mathsss
-```
-
-```bash
+# or
 yarn add @muzzamilhassan/mathsss
-```
-
-```bash
+# or
 pnpm add @muzzamilhassan/mathsss
 ```
 
 ## 🚀 Features
+- **Typed**: Full TypeScript definitions
+- **Broad coverage**: Arithmetic, statistics, geometry, and helpers
+- **Lightweight**: Small and tree-shakeable
+- **ES Modules**: Modern build
 
-- **TypeScript Support**: Full TypeScript definitions included
-- **Lightweight**: Minimal bundle size
-- **ES Modules**: Modern ES module support
-- **Simple API**: Easy-to-use mathematical functions
+## 🔰 Quick Start
+```typescript
+import {
+  add, subtract, multiply, divide,
+  power, factorial, fibonacci, gcd, lcm,
+  mean, median, mode, variance, stdDev,
+  areaOfCircle, perimeterOfCircle,
+  areaOfRectangle, perimeterOfRectangle,
+  pythagoras,
+  isPrime, isEven, isOdd, randomInt,
+} from '@muzzamilhassan/mathsss';
+
+add(2, 3); // 5
+stdDev([1, 2, 3, 4, 5]); // 1.4142...
+areaOfRectangle(5, 10); // 50
+isPrime(17); // true
+```
 
 ## 📚 API Reference
 
-### `sum(a: number, b: number): number`
+### 1) 🔢 Basic Arithmetic
+- `add(a: number, b: number): number`
+- `subtract(a: number, b: number): number`
+- `multiply(a: number, b: number): number`
+- `divide(a: number, b: number): number`
+  - Throws if `b === 0`.
 
-Adds two numbers together.
-
-**Parameters:**
-- `a` (number): First number
-- `b` (number): Second number
-
-**Returns:** The sum of the two numbers
-
-**Example:**
+Examples:
 ```typescript
-import { sum } from '@muzzamilhassan/mathsss';
-
-const result = sum(5, 3); // Returns: 8
-const negativeSum = sum(-10, 5); // Returns: -5
+add(10, 5); // 15
+subtract(10, 5); // 5
+multiply(4, 6); // 24
+divide(20, 4); // 5
 ```
 
-### `multiply(a: number, b: number): number`
+### 2) 📈 Advanced Math
+- `power(base: number, exponent: number): number`
+- `factorial(n: number): number`
+  - Throws for negative inputs.
+- `fibonacci(n: number): number`
+  - Throws for negative inputs.
+- `gcd(a: number, b: number): number`
+- `lcm(a: number, b: number): number`
 
-Multiplies two numbers together.
-
-**Parameters:**
-- `a` (number): First number
-- `b` (number): Second number
-
-**Returns:** The product of the two numbers
-
-**Example:**
+Examples:
 ```typescript
-import { multiply } from '@muzzamilhassan/mathsss';
-
-const result = multiply(4, 6); // Returns: 24
-const negativeProduct = multiply(-3, 7); // Returns: -21
+power(2, 10); // 1024
+factorial(5); // 120
+fibonacci(10); // 55
+gcd(24, 18); // 6
+lcm(6, 8); // 24
 ```
 
-## 💻 Usage Examples
+### 3) 📊 Statistics
+- `mean(numbers: number[]): number`
+  - Throws if array is empty.
+- `median(numbers: number[]): number`
+  - Throws if array is empty.
+- `mode(numbers: number[]): number[]`
+  - Throws if array is empty; returns all modes if multiple.
+- `variance(numbers: number[]): number`
+  - Throws if array is empty.
+- `stdDev(numbers: number[]): number`
 
-### Basic Operations
+Examples:
 ```typescript
-import { sum, multiply } from '@muzzamilhassan/mathsss';
-
-// Simple calculations
-const total = sum(100, 50); // 150
-const area = multiply(10, 15); // 150
-
-// Working with variables
-const price = 29.99;
-const quantity = 3;
-const totalCost = multiply(price, quantity); // 89.97
+mean([1, 2, 3, 4]); // 2.5
+median([7, 3, 5]); // 5
+mode([1, 2, 2, 3, 3]); // [2, 3]
+variance([1, 2, 3]); // 0.666...
+stdDev([1, 2, 3]); // 0.816...
 ```
 
-### In Functions
+### 4) 📐 Geometry Helpers
+- `areaOfCircle(radius: number): number`
+- `perimeterOfCircle(radius: number): number`
+- `areaOfRectangle(length: number, width: number): number`
+- `perimeterOfRectangle(length: number, width: number): number`
+- `pythagoras(a: number, b: number): number`
+
+Examples:
 ```typescript
-import { sum, multiply } from '@muzzamilhassan/mathsss';
-
-function calculateRectangleArea(width: number, height: number): number {
-  return multiply(width, height);
-}
-
-function calculateTotal(items: number[]): number {
-  return items.reduce((acc, item) => sum(acc, item), 0);
-}
-
-// Usage
-const area = calculateRectangleArea(5, 10); // 50
-const total = calculateTotal([10, 20, 30, 40]); // 100
+areaOfCircle(3); // 28.274...
+perimeterOfCircle(3); // 18.849...
+areaOfRectangle(4, 8); // 32
+perimeterOfRectangle(4, 8); // 24
+pythagoras(3, 4); // 5
 ```
 
-## 🔧 Development
+### 5) 🔬 Utility Functions
+- `isPrime(n: number): boolean`
+- `isEven(n: number): boolean`
+- `isOdd(n: number): boolean`
+- `randomInt(min: number, max: number): number`
+  - Throws if `min > max`.
 
-### Building
+Examples:
+```typescript
+isPrime(29); // true
+isEven(10); // true
+isOdd(7); // true
+randomInt(1, 100); // e.g., 42
+```
+
+## 🛠️ Development
+Build from source:
 ```bash
-npm run build
+pnpm build
 ```
 
-### TypeScript
-This package is written in TypeScript and includes type definitions. The source code is compiled to JavaScript in the `dist` folder.
+Type definitions are generated in `dist/index.d.ts`.
 
 ## 📄 License
-
-ISC License
+ISC
 
 ## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📞 Support
-
-If you have any questions or need help, please open an issue on the GitHub repository.
+PRs welcome! Please open an issue or pull request with improvements or new helpers.
 
 ---
-
-**Made with ❤️ by Muzzamil Hassan**
+Made with ❤️ by Muzzamil Hassan
