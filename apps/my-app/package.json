@@ -4,5 +4,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node login.js"
-  }
+  },
+  "keywords": [
+    "scaffolded",
+    "user",
+    "login",
+    "logout",
+    "register",
+    "node",
+    "typescript",
+    "monorepo"
+  ]
 }

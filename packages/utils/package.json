@@ -9,7 +9,16 @@
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
-  "keywords": [],
+  "keywords": [
+    "utils",
+    "utilities",
+    "helpers",
+    "typescript",
+    "library",
+    "esm",
+    "common",
+    "monorepo"
+  ],
   "author": "",
   "license": "ISC",
   "type": "module",

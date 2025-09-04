@@ -9,7 +9,16 @@
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
-  "keywords": [],
+  "keywords": [
+    "math",
+    "arithmetic",
+    "utilities",
+    "typescript",
+    "library",
+    "functions",
+    "esm",
+    "monorepo"
+  ],
   "author": "",
   "license": "ISC",
   "type": "module",
