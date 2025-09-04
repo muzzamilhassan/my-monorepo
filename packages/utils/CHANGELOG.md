@@ -1,5 +1,11 @@
 # @muzzamilhassan/utilsss
 
+## 0.2.4
+
+### Patch Changes
+
+- 158a4a8: write a keywords for package
+
 ## 0.2.3
 
 ### Patch Changes

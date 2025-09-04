@@ -1,5 +1,11 @@
 # @muzzamilhassan/mathsss
 
+## 0.3.5
+
+### Patch Changes
+
+- 158a4a8: write a keywords for package
+
 ## 0.3.4
 
 ### Patch Changes
